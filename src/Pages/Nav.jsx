@@ -1,14 +1,27 @@
 import React, { useState } from 'react'
 import { BsFillBagHeartFill } from "react-icons/bs";
 import { MdRestaurantMenu } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import { useFavorite } from './Recoil/Hook';
+import { Link , useNavigate } from 'react-router-dom';
+import { useFavorite , useRecipeFilter } from './Recoil/Hook';
 
 const Nav = () => {
 
   const { count } = useFavorite();
-
+  const navigate = useNavigate();
+  const { updateSearchQuery, updateSelectedCategory } = useRecipeFilter();
   const [hoveredFavNav, setHoveredFavNav] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    updateSearchQuery(searchInput);
+    navigate('/products');
+  } 
+
+  const handleCategorySelect = (category) => {
+    updateSelectedCategory(category);
+    navigate('/products');
+  }
 
   const favoritesButtonStyle = {
     backgroundColor: "#284a4aff", 
