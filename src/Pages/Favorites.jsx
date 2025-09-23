@@ -56,7 +56,9 @@ const Favorites = () => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '20px'
+    gap: '20px',
+    marginBottom: '120px'
+    
   };
 
   const removeButtonStyle = {
