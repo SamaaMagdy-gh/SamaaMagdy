@@ -28,15 +28,43 @@ export const counterAtom= selector
         return favorite.length
     }
 })
-// export const searchQueryAtom = atom({
-//     key: 'searchQueryAtom',
-//     default: '',
-// });
+export const searchQueryAtom = atom({
+    key: 'searchQueryAtom',
+    default: '',
+});
 
-// export const SelectedCategoryAtom = atom({
-//     key: 'SelectedCategoryAtom',
-//     default: 'All',
-// });
+export const SelectedCategoryAtom = atom({
+    key: 'SelectedCategoryAtom',
+    default: 'All',
+});
+
+export const allRecipesAtom = atom({
+    key: 'allRecipesAtom',
+    default: [],
+});
+
+export const filteredRecipesSelector = selector({
+    key: 'filteredRecipesAtom',
+    get: ({ get }) => {
+        const allRecipes = get(allRecipesAtom);
+        const selectedCategory = get(SelectedCategoryAtom);
+        const searchQuery = get(searchQueryAtom).toLowerCase();
+
+        let filteredRecipes = allRecipes;
+
+        if (selectedCategory !== 'All') {
+            filteredRecipes = filteredRecipes.filter(recipe => recipe.mealType && recipe.mealType.includes(selectedCategory));
+        }
+        if (searchQuery) {
+            filteredRecipes = filteredRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            recipe.cuisine.toLowerCase().includes(searchQuery.toLowerCase())||
+            recipe.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        }
+        return filteredRecipes;
+    }
+})
+
+
 // export const  filterSelector= selector({
 // key: 'counterAtom',
 //     get: ({ get }) => {
