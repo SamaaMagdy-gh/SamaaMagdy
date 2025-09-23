@@ -15,16 +15,16 @@ const footerStyle = {
 
   return (
     <>
-      <footer class="footer-section" style={footerStyle}>
-        <div class="container">
-          <div class="row justify-content-between">
-            <div class="col-md-4 text-md-start mb-4 mb-md-0">
-              <p class="mb-0 " style={{ fontSize: '16px', color: '#bcdcdcff', fontWeight: 'bold', marginTop: '70px' }}>
+      <footer className="footer-section" style={footerStyle}>
+        <div className="container">
+          <div className="row justify-content-between">
+            <div className="col-md-4 text-md-start mb-4 mb-md-0">
+              <p className="mb-0 " style={{ fontSize: '16px', color: '#bcdcdcff', fontWeight: 'bold', marginTop: '70px' }}>
                 © 2025 <strong>Foodak<MdRestaurantMenu /></strong> All Rights Reserved.
               </p>
             </div>
-            <div class="col-md-8 text-center text-md-end mt-5">
-              <div class="social-icons" style={{ textDecoration: 'none', fontSize: '30px', marginRight: '10px' }} >
+            <div className="col-md-8 text-center text-md-end mt-5">
+              <div className="social-icons" style={{ textDecoration: 'none', fontSize: '30px', marginRight: '10px' }} >
                 <Link to="https://www.facebook.com/" target='blank' style={{ marginRight: '10px', color: '#002323ff' }}>
                   <FaFacebook />
                 </Link>
@@ -47,7 +47,7 @@ const footerStyle = {
         </div>
 
 
-        <div class="back-to-top" style={{
+        <div className="back-to-top" style={{
           position: 'fixed',
           bottom: '20px',
           cursor: 'pointer',
