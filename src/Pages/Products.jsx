@@ -2,25 +2,33 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GrFavorite } from "react-icons/gr";
-import { useFavorite } from './Recoil/Hook';
+import { useFavorite,useRecipeFilter } from './Recoil/Hook';
 import './Products.css';
 
 const Products = () => {
     const [data, setData] = useState([])
     const [hoveredButton, setHoveredButton] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    const {addFavorite, isInFavorites} = useFavorite(); 
+
+    const { filteredRecipes , loadaAllRecipes,searchQuery,selectedCategory,updateSearchQuery,resetFilters} = useRecipeFilter();
     
          
     useEffect(() => {
         axios.get('https://dummyjson.com/recipes')
             .then((res) => {
                 console.log(res.data)
+                loadaAllRecipes(res.data.recipes);
+                setLoading(false);
                 setData(res.data.recipes)
             }).catch((err) => {
                 console.log(err)
+                setLoading(false);
             })
-    }, [])
+    }, [loadaAllRecipes])
 
-    const { favorite, count, addFavorite, isInFavorites } = useFavorite();
+    const { favorite, count} = useFavorite();
       
     const handleAddToFavorite = (value) => {
         const wasAdded = addFavorite(value);
@@ -30,6 +38,10 @@ const Products = () => {
         } else {
             alert("Item removed from favorites");
         }
+    }
+
+    const handleClrearSearch = () => {
+        resetFilters();
     }
 
     
@@ -99,6 +111,20 @@ const Products = () => {
         border: '2px solid #ff4757',
         backgroundColor: '#ffe0e1'
     };
+
+    if (loading) {
+        return (
+             <div className="container mt-5">
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="mt-3">Loading recipes...</p>
+                </div>
+            </div>
+        )
+
+    }
         
     return (
         <>
